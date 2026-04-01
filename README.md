@@ -1,9 +1,9 @@
 # Home-Lab-Docs
 Technical documentation for my Proxmox and Ubuntu Home Lab. (Beginner)
-# 🛡️ Network Wali Home Lab
+# Network Wali Home Lab
 Comprehensive documentation of my transition from Windows to a Proxmox-based Virtual Environment.
 
-## 🏗️ Phase 1: The Bare Metal Transition
+## Phase 1: The Bare Metal Transition
 **Objective:** Replace the Windows OS on my HP Elitebook with Proxmox VE 8.x to create a Type-1 Hypervisor.
 
 ### 1. Hardware Audit
