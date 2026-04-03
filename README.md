@@ -1,23 +1,91 @@
-# Home-Lab-Docs
-Technical documentation for my Proxmox and Ubuntu Home Lab. (Beginner)
-# Network Wali Home Lab
-This is a Comprehensive documentation of turning my lap Windows to a Proxmox-based Virtual Environment. The reason I started this small project is to get hands-on experience with Computer Networks while I study for my certs, because I was struggling to get real-world experince from companies as theory was not enough. So I decided to simulate experiences myself that I would possibly find in the real-world. 
+# 🛡️ Network Wali: Home Lab Build-Out Guide
+> **Goal:** A step-by-step Standard Operating Procedure (SOP) for migrating from a Windows-based laptop to a professional Proxmox Hypervisor and Ubuntu NOC.
 
-## Phase 1: The Bare Metal Transition
-**Objective:** Replace the Windows OS on my HP Elitebook with Proxmox VE 8.x to create a Type-1 Hypervisor.
+---
 
-### 1. Hardware Audit
-* **Device:** HP Elitebook
-* **Role:** Primary Hypervisor Node
-* **Key BIOS Settings:** * **Virtualization (VT-x/AMD-V):** Enabled (Required for VMs to run).
-    * **Secure Boot:** Disabled (Often required for Proxmox installation).
+## 📋 Phase 1: Preparing the Documentation Engine
+Before touching any hardware, we set up the "Command Center" for our documentation.
 
-### 2. The Proxmox Installation Command Concepts
-*Why do we use these commands during or after the ISO installation?*
+### 1. The Toolchain
+* **GitHub:** Our cloud-based "Safe" for documentation.
+* **Git for Windows:** The engine that talks to GitHub.
+* **VS Code:** Our primary editor for writing Markdown.
+* **GitHub Desktop:** The visual interface for managing "Commits" and "Pushes."
 
-| Command | Definition | Why we use it |
+### 2. Initial Setup & Troubleshooting
+* **Task:** Install Git for Windows and link it to VS Code.
+* **⚠️ Known Issue:** After installation, the VS Code terminal may say `git is not recognized`.
+* **✅ The Fix:** Restart VS Code. This refreshes the "Environment Variables" so the system can find the Git engine.
+* **🔍 Git Diff Understanding:** In the "Changes" view, **Red** lines represent deleted/replaced code; **Green** lines represent new improvements.
+
+---
+
+## 💻 Phase 2: Hardware Provisioning (The HP Elitebook)
+### 1. BIOS Configuration
+* **Key to Enter BIOS:** Tap `F10` repeatedly during startup.
+* **Key for Boot Menu:** Tap `F9` (to select the USB installer).
+
+### 2. Critical Hardware Settings
+| Setting | Selection | The "Why" (Junior Tech Explanation) |
 | :--- | :--- | :--- |
-| `lsblk` | List Block Devices | To ensure we are wiping the correct hard drive and not the USB. |
-| `ip addr` | Show Network Addresses | To verify our static IP is active on the local network. |
-| `apt update` | Update Package List | To download the latest security metadata for our server. |
+| **Intel VT-x** | **Enabled** | Necessary for the Type-1 Hypervisor to share CPU power with VMs. |
+| **Secure Boot** | **Disabled** | Allows the Proxmox (Debian) kernel to boot without signature errors. |
+| **Boot Order** | **USB First** | Priority given to the installation media for the OS transition. |
 
+---
+
+## 💿 Phase 3: Creating the Bootable Media
+1. **Tool:** Use **BalenaEtcher**.
+2. **Process:** Flash the Proxmox VE 8.x ISO to a 16GB+ USB drive.
+3. **Verification:** Always wait for the "Validation" step to ensure no data corruption occurred.
+
+---
+
+## 🚀 Phase 4: Proxmox & Linux Command Reference
+Once the OS is installed, these are the commands used to manage the environment.
+
+### 🖥️ Proxmox (PVE) Specifics
+* **Web UI Access:** `https://192.168.x.99:8006` (The `8006` port is the PVE default).
+* **CLI Management:**
+    * `qm list`: Shows all Virtual Machines and their status (Running/Stopped).
+    * `qm start <vmid>`: Powers on a specific VM (e.g., your Ubuntu Server).
+    * `pveversion -v`: Displays detailed version info for troubleshooting.
+
+### 🐧 Essential Linux Commands (The "Daily Drivers")
+| Command | What it does | Why we use it |
+| :--- | :--- | :--- |
+| `sudo` | SuperUser Do | Grants temporary administrative (root) privileges. |
+| `ls -la` | List All | Shows all files, including hidden ones and their permissions. |
+| `cd` | Change Directory | Moves you through the folder structure (e.g., `cd ~/homepage`). |
+| `ip addr` | IP Address | Verifies the current network configuration and MAC address. |
+| `df -h` | Disk Free | Checks how much storage space is left on your drives. |
+| `htop` | Process Monitor | A visual "Task Manager" for Linux to check CPU/RAM usage. |
+
+---
+
+## 🛠️ Phase 5: Troubleshooting Log & Resolutions
+This section tracks the specific "Roadblocks" we hit and how we bypassed them.
+
+### 1. The "Git Not Recognized" Error
+* **Symptom:** VS Code terminal returns an error when typing `git`.
+* **Resolution:** Re-initialized the PATH environment by restarting the IDE.
+
+### 2. Docker Permission Issues
+* **Symptom:** Unable to edit config files in `~/homepage` because they were owned by `root`.
+* **The Fix:** Used `chown` to take ownership of the folders:
+  `sudo chown -R $USER:$USER ~/homepage`
+* **Why:** This allows your user account to edit YAML files without needing `sudo` every time.
+
+### 3. PDF Editor "Paywalls"
+* **Symptom:** Stirling-PDF Pro features (Direct Text Edit) asked for payment.
+* **Resolution:** Utilized **LibreOffice Draw** for free direct editing and Stirling-PDF's **OCR to Word** feature for complex document conversion.
+
+---
+
+## 📦 Phase 6: The "NOC" Service Stack
+| Service | Internal Port | Access URL | Role |
+| :--- | :--- | :--- | :--- |
+| **AdGuard Home** | `3000` | `http://192.168.x.99:3000` | DNS Filtering & Ad Blocking. |
+| **Portainer** | `9443` | `https://192.168.x.99:9443` | Visual Docker Management. |
+| **Homepage** | `8082` | `http://192.168.x.99:8082` | The Central Dashboard. |
+| **Stirling-PDF** | `8080` | `http://192.168.x.99:8080` | Privacy-focused PDF tools. |
