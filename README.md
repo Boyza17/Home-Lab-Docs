@@ -86,6 +86,6 @@ This section tracks the specific "Roadblocks" we hit and how we bypassed them.
 | Service | Internal Port | Role |
 | :--- | :--- | :--- | :--- |
 | **AdGuard Home** | `3000` | DNS Filtering & Ad Blocking. |
-| **Portainer** | `9443`    | Visual Docker Management. |
-| **Homepage** | `8082`     | The Central Dashboard. |
-| **Stirling-PDF** | `8080` |  Privacy-focused PDF tools. |
+| **Portainer** | `9443` | Visual Docker Management. |
+| **Homepage** | `8082` | The Central Dashboard. |
+| **Stirling-PDF** | `8080`  |  Privacy-focused PDF tools. |
