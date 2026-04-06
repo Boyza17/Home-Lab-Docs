@@ -14,7 +14,7 @@ Before touching any hardware, we set up the "Command Center" for our documentati
 
 ### 2. Initial Setup & Troubleshooting
 * **Task:** Install Git for Windows and link it to VS Code.
-* **⚠️ Known Issue:** After installation, the VS Code terminal may say `git is not recognized`.
+* **⚠️ Known Issue:** After installation, the VS Code terminal may say `git : The term 'git' is not recognized`.
 * **✅ The Fix:** Restart VS Code. This refreshes the "Environment Variables" so the system can find the Git engine.
 * **🔍 Git Diff Understanding:** In the "Changes" view, **Red** lines represent deleted/replaced code; **Green** lines represent new improvements.
 
@@ -45,7 +45,7 @@ Before touching any hardware, we set up the "Command Center" for our documentati
 Once the OS is installed, these are the commands used to manage the environment.
 
 ### 🖥️ Proxmox (PVE) Specifics
-* **Web UI Access:** `https://192.168.x.99:8006` (The `8006` port is the PVE default).
+* **Web UI Access:** `https://<SERVER_IP>:8006` (Port 8006 is the PVE default).
 * **CLI Management:**
     * `qm list`: Shows all Virtual Machines and their status (Running/Stopped).
     * `qm start <vmid>`: Powers on a specific VM (e.g., your Ubuntu Server).
@@ -83,9 +83,12 @@ This section tracks the specific "Roadblocks" we hit and how we bypassed them.
 ---
 
 ## 📦 Phase 6: The "NOC" Service Stack
-| Service | Internal Port | Role |
+*Note: All services are hosted on the Ubuntu Server VM at `<SERVER_IP>`.*
+
+| Service | Internal Port | Access URL | Role |
 | :--- | :--- | :--- | :--- |
-| **AdGuard Home** | `3000` | DNS Filtering & Ad Blocking. |
-| **Portainer** | `9443` | Visual Docker Management. |
-| **Homepage** | `8082` | The Central Dashboard. |
-| **Stirling-PDF** | `8080`  |  Privacy-focused PDF tools. |
+| **AdGuard Home** | `3000` | `http://<SERVER_IP>:3000` | DNS Filtering & Ad Blocking. |
+| **Portainer** | `9443` | `https://<SERVER_IP>:9443` | Visual Docker Management. |
+| **Homepage** | `8082` | `http://<SERVER_IP>:8082` | The Central Dashboard. |
+| **Stirling-PDF** | `8080` | `http://<SERVER_IP>:8080` | Privacy-focused PDF tools. |
+| **Nginx Proxy Manager**| `81` | `http://<SERVER_IP>:81` | SSL & Reverse Proxy Management. |
