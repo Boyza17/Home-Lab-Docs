@@ -35,7 +35,7 @@ Before touching any hardware, we set up the "Command Center" for our documentati
 ---
 
 ## 💿 Phase 3: Creating the Bootable Media
-1. **Tool:** Use **BalenaEtcher**.
+1. **Tool:** Use **BalenaEtcher or Rusfus**.
 2. **Process:** Flash the Proxmox VE 8.x ISO to a 16GB+ USB drive.
 3. **Verification:** Always wait for the "Validation" step to ensure no data corruption occurred.
 
